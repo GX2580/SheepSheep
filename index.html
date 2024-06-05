@@ -21,8 +21,8 @@
             <p>定位</p>
           </div>
           <div class="types">
-            <div class="type-list" v-for="value,k in typeList" :key="key">
-              <!-- //这里绑定的key的值是哪个值 -->
+             <!-- 这里绑定的key的值是哪个值 -->
+            <div class="type-list" v-for="value,k in typeList" :key="k">
               <div
                 class="radio"
                 v-for="item in value"

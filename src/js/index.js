@@ -54,11 +54,13 @@ const app = createApp({
           )
         }
       } else {
-        
         let res = this.heroList.filter((item) => item.cname.includes(keyword))
         res = _.cloneDeep(res)
-        return res.map(item => {
-          item.cname = item.cname.replace(keyword,`<span style="color:red">${keyword}</span>`)
+        return res.map((item) => {
+          item.cname = item.cname.replace(
+            keyword,
+            `<span style="color:red">${keyword}</span>`
+          )
           return item
         })
       }
