@@ -8,6 +8,7 @@
     <!-- 引入vue.js -->
     <script src="./node_modules/vue/dist/vue.global.js"></script>
     <script src="/node_modules/axios/dist/axios.min.js"></script>
+    <script src="./node_modules/lodash/lodash.min.js"></script>
   </head>
   <body>
     <!-- 创建页面容器 -->
@@ -20,23 +21,26 @@
             <p>定位</p>
           </div>
           <div class="types">
-            <div class="type-list">
-              <div class="radio" :class="{checked:checked === 10}" @click="changeType('pay_type',10)">本周免费</div>
-              <div class="radio" :class="{checked:checked === 11}" @click="changeType('pay_type',11)">新手推荐</div>
-            </div>
-            <div class="type-list">
-              <div class="radio" :class="{checked:checked === 0}" @click="changeType('dingwei',0)">全部</div>
-              <div class="radio" :class="{checked:checked === 3}" @click="changeType('dingwei',3)">坦克</div>
-              <div class="radio" :class="{checked:checked === 1}" @click="changeType('dingwei',1)">战士</div>
-              <div class="radio" :class="{checked:checked === 4}" @click="changeType('dingwei',4)">刺客</div>
-              <div class="radio" :class="{checked:checked === 2}" @click="changeType('dingwei',2)">法师</div>
-              <div class="radio" :class="{checked:checked === 5}" @click="changeType('dingwei',5)">射手</div>
-              <div class="radio" :class="{checked:checked === 6}" @click="changeType('dingwei',6)">辅助</div>
+            <div class="type-list" v-for="value,k in typeList" :key="key">
+              <!-- //这里绑定的key的值是哪个值 -->
+              <div
+                class="radio"
+                v-for="item in value"
+                :class="{checked:checked === item.value}"
+                @click="changeType(k,item.value)"
+              >
+                {{item.name}}
+              </div>
             </div>
           </div>
           <div class="keyword">
             <div class="input">
-              <input type="text" placeholder="请输入你要搜索的英雄名" />
+              <input
+                type="text"
+                placeholder="请输入你要搜索的英雄名"
+                :value="keyword"
+                @input="changeKeyword"
+              />
             </div>
           </div>
         </div>
@@ -46,7 +50,7 @@
           <li v-for="hero in filterHeros" :key="hero.id_name">
             <a :href="heroDetail(hero.ename)">
               <img :src="heroImage(hero.ename)" />
-              <span>{{hero.cname}}</span>
+              <span v-html="hero.cname"></span>
             </a>
           </li>
         </ul>
