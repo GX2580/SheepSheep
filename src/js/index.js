@@ -40,10 +40,9 @@ const app = createApp({
     },
     filterHeros() {
       const { key, value } = this.query // 'pay_type' || 'dingwei'
-      if(this.keyword){
-        const res = this.heroList.filter(item=>item.cname.inlcudes(this.keyword))
-        
-      }else{
+      const keyword = this.keyword
+      if (keyword === '') {
+        // const res = this.heroList.filter(item=>item.cname.inlcudes(this.keyword))
         if (key === 'pay_type') {
           return this.heroList.filter((item) => item.pay_type === value)
         } else if (key === 'dingwei') {
@@ -54,8 +53,15 @@ const app = createApp({
             (item) => item.hero_type === value || item.hero_type2 === value
           )
         }
+      } else {
+        
+        let res = this.heroList.filter((item) => item.cname.includes(keyword))
+        res = _.cloneDeep(res)
+        return res.map(item => {
+          item.cname = item.cname.replace(keyword,`<span style="color:red">${keyword}</span>`)
+          return item
+        })
       }
-      
     },
   },
   methods: {
