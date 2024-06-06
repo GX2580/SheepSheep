@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>01-什么是响应式</title>
+</head>
+<body>
+  <div id="app">hello</div>
+  <script>
+    // 当数据改变时，页面重新渲染
+    // 1. 创建数据的代理对象(Proxy)
+    // 2. 设置代理对象 => 触发自定义set操作
+    // 3. 在setter中，调用render()重新渲染页面
+    const data = {
+      msg: 'hello'
+    };
+
+    const p = new Proxy(data, {
+      get(target, key) {
+        return target[key];
+      },
+      set(target, key, value) {
+        target[key] = value;
+        // 调用render()
+        render();
+        return true; // 确保set操作成功
+      }
+    });
+
+    function render() {
+      document.querySelector('#app').innerHTML = p.msg;
+    }
+
+    // 初始渲染
+    render();
+
+    // 测试响应性
+    setTimeout(() => {
+      p.msg = 'world';
+    }, 1000);
+  </script>
+</body>
+</html>

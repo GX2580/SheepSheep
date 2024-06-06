@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue CDN Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <p>Name: {{ pState.name }}</p>
+      <p>Age: {{ pState.age }}</p>
+      <p>GF Name: {{ pState.gf.name }}</p>
+      <p>GF Age: {{ pState.gf.age }}</p>
+      <p>GF City: {{ pState.gf.city.name }}</p>
+      <button @click="changeName">Change Name</button>
+    </div>
+    <script>
+      const { reactive, effect, createApp } = Vue;
+
+      const pState = reactive({
+        name: 'xiaomei',
+        age: 20,
+        gf: {
+          name: 'aaa',
+          age: 18,
+          city: {
+            name: 'bbb',
+          },
+        },
+      });
+
+      effect(() => {
+        console.log('pState changed', pState.name);
+      });
+
+      createApp({
+        data() {
+          return {
+            pState
+          };
+        },
+        methods: {
+          changeName() {
+            this.pState.name = 'xiaohong';
+          }
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

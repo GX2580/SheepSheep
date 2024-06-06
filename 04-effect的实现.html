@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>04-effect的实现</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    let activeEffect = null;
+    const bucket = new Set();
+
+    function reactive(obj) {
+      return new Proxy(obj, {
+        get(target, key) {
+          // 收集依赖
+          if (activeEffect) {
+            bucket.add(activeEffect);
+          }
+          return target[key];
+        },
+        set(target, key, value) {
+          target[key] = value;
+          // 执行依赖
+          bucket.forEach(fn => fn());
+          return true;
+        }
+      });
+    }
+
+    function effect(fn) {
+      activeEffect = fn;
+      fn();
+      activeEffect = null;
+    }
+
+    // 1. 创建一个响应式对象
+    const pState = reactive({
+      msg: 'hello',
+    });
+
+    // 2. 定义一个渲染函数（在这个函数中，引入了响应式对象属性，触发getter操作，在getter操作中收集依赖）
+    function render() {
+      document.querySelector('#app').innerHTML = pState.msg;
+    }
+
+    // 3. 执行effect，传入渲染函数
+    effect(render);
+
+    // 4. 测试响应性
+    setTimeout(() => {
+      pState.msg = 'abc';
+    }, 1000);
+  </script>
+</body>
+</html>

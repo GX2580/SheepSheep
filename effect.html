@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue CDN Example</title>
+    <!-- 引用Vue的CDN链接 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script> -->
+    <!-- 如果你使用Vue 3，可以使用以下链接 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // 创建Vue实例
+      const { reactive, effect } = Vue;
+
+      const pState = reactive({
+        msg: 'hello',
+      });
+
+      function render() {
+        document.querySelector('#app').innerHTML = pState.msg;
+      }
+
+      effect(render);
+
+      // 测试响应性
+      setTimeout(() => {
+        pState.msg = 'hello, world!';
+      }, 2000);
+    </script>
+  </body>
+</html>
