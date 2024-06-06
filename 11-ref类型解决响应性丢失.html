@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="todo in todos" :key="todo.id">{{ todo.text }}</li>
+      </ul>
+    </div>
+    <script>
+      const { ref, createApp, onMounted } = Vue
+
+      // 在Vue 3中, 如果要使用组合式API, 通常需要一个入口(setup选项)
+      const vm = createApp({
+        setup() {
+          // 定义响应式数据
+          let todos = ref([])
+
+          // 模拟获取待办事项的函数
+          function getTodos() {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve([
+                  { id: 1, text: 'Learn Vue 3' },
+                  { id: 2, text: 'Build a project' },
+                  { id: 3, text: 'Master Composition API' },
+                ])
+              }, 1000)
+            })
+          }
+
+          // 在组件挂载时获取待办事项
+          onMounted(async () => {
+            todos.value = await getTodos()
+          })
+
+          // 返回响应式数据供模板使用
+          return {
+            todos,
+          }
+        },
+      }).mount('#app')
+
+      // 输出Vue实例
+      console.log(vm)
+    </script>
+  </body>
+</html>

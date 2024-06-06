@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>09</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script> -->
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const { ref, effect } = Vue
+      //1.通过ref定义(创建)响应式数据
+      const count = ref(0)
+      console.log(count)
+
+      function e1() {
+        console.log(count.value)
+      }
+      effect(e1)
+      console.log(count)
+
+      setTimeout(() => {
+        count.value = 100
+      }, 1000)
+    </script>
+  </body>
+</html>

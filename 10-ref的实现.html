@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+      const { ref, effect } = Vue
+
+      // 创建值类型数据的响应式对象
+      const count = ref(0)
+      // 返回值, 是一个RefImpl
+      console.log(count)
+
+      effect(() => {
+        // 引用时, 需要使用.value
+        app.innerHTML = count.value
+      })
+
+      setInterval(() => {
+        // 赋值操作也需要使用.value
+        count.value++
+      }, 1000)
+    </script>
+  </body>
+</html>

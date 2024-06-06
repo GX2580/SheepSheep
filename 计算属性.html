@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    姓: <input type="text" v-model="firstName" /><br />
+    名: <input type="text" v-model="lastName" /><br />
+    全名: {{ fullName }}
+    <!-- 添加一个按钮用于触发全名的更新 -->
+    <button @click="setFullName('张 全蛋')">设置全名</button>
+  </div>
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const firstName = ref('');
+        const lastName = ref('');
+        const fullName = computed({
+          get() {
+            return `${firstName.value} ${lastName.value}`;
+          },
+          set(value) {
+            const [first, last] = value.split(' ');
+          
+            firstName.value = first;
+            lastName.value = last;
+            const arr = value.split(' ')
+            console.log(arr)
+          },
+        });
+
+        // 定义一个方法用于更新全名
+        function setFullName(name) {
+          fullName.value = name;
+        }
+
+        return {
+          firstName,
+          lastName,
+          fullName,
+          setFullName, // 返回这个方法，使其在模板中可用
+        };
+      },
+    }).mount('#app');
+  </script>
+</body>
+</html>

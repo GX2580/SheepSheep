@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <script>
+      const { reactive, effect } = Vue
+      const pObj = reactive({ foo: 1, bar: 2 })
+      let foo = pObj.foo
+      effect(() => {
+        console.log('foo没有响应性', foo)
+      })
+      setTimeout(() => {
+        foo = 2
+      },1000)
+    </script>
+  </body>
+</html>

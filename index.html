@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue CDN Example</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
-</head>
-<body>
-  <div id="app"></div>
-  <script>
-    // 创建Vue实例
-    const { createApp } = Vue;
-    createApp({
-      data() {
-        return {
-          message: 'Hello Vue 3!'
-        };
-      }
-    }).mount('#app');
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue CDN Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // 创建Vue实例
+      const { createApp } = Vue
+    </script>
+  </body>
 </html>

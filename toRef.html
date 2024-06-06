@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <script>
+      const { reactive, toRef, toRefs, effect } = Vue
+      const pObj = reactive({ foo: 1, bar: 2 })
+      //定义一个新的变量并且希望其保持响应性
+      const foo = toRef(pObj, 'foo')
+      console.log(foo)
+
+      effect(() => {
+        console.log(foo.value)
+      })
+
+      setTimeout(() => {
+        foo.value = 3
+      }, 1000)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // ES5 对象定义
+    var obj = {
+      _age: 0, // 内部属性，用于存储实际的年龄值
+      name: 'xiaoming', // 对象的名称属性
+
+      // 属性的访问器，用于获取年龄值
+      get age() {
+        return this._age;
+      },
+
+      // 属性的设置器，用于设置年龄值
+      set age(value) {
+        this._age = value;
+      }
+    };
+
+    // 设置对象的年龄值
+    obj.age = 25;
+    // 输出对象，查看其属性
+    console.log(obj);
+
+    // ES6 类定义
+    class Person {
+      // 构造函数，用于初始化对象的属性
+      constructor(name, age) {
+        this.name = name; // 初始化名称属性
+        this._age = age; // 初始化内部年龄属性
+      }
+
+      // 属性的访问器，用于获取年龄值
+      get age() {
+        return this._age;
+      }
+
+      // 属性的设置器，用于设置年龄值
+      set age(value) {
+        this._age = value;
+      }
+    }
+
+    // 创建一个 Person 类的实例
+    const p = new Person('xiaoming', 25);
+    // 输出实例对象，查看其属性
+    console.log(p);
+  </script>
+</body>
+</html>

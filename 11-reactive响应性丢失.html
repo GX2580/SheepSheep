@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 Todo List Example</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="todo in todos" :key="todo.id">{{ todo.text }}</li>
+      </ul>
+    </div>
+    <script>
+      const { reactive, createApp, onMounted } = Vue
+
+      createApp({
+        setup() {
+          let todos = reactive({ list: [] })
+
+          function getTodos() {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve([
+                  { id: 1, text: '学习 Vue 3' },
+                  { id: 2, text: '阅读 Vue 文档' },
+                  { id: 3, text: '构建一个很棒的项目' },
+                ])
+              }, 1000)
+            })
+          }
+
+          onMounted(async () => {
+            todos.list = await getTodos()
+          })
+
+          return {
+            todos: todos.list,
+          }
+        },
+      }).mount('#app')
+    </script>
+  </body>
+</html>

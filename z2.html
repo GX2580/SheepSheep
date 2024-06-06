@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // ES5 对象定义和使用访问器、设置器
+      var obj = {
+        _age: 0, // 内部属性，用于存储实际的年龄值
+        name: 'xiaoming', // 对象的名称属性
+
+        // 属性的访问器，用于获取年龄值
+        get age() {
+          return this._age
+        },
+
+        // 属性的设置器，用于设置年龄值
+        set age(value) {
+          if (value < 0) {
+            console.error('Age cannot be negative')
+          } else {
+            this._age = value
+          }
+        },
+      }
+
+      // 设置对象的年龄值
+      obj.age = 25
+      // 输出对象，查看其属性
+      console.log(obj)
+
+      // 尝试设置一个非法的年龄值
+      obj.age = -5
+      console.log(obj)
+
+      // ES6 类定义和使用访问器、设置器
+      class Person {
+        // 构造函数，用于初始化对象的属性
+        constructor(name, age) {
+          this.name = name // 初始化名称属性
+          this._age = age // 初始化内部年龄属性
+        }
+
+        // 属性的访问器，用于获取年龄值
+        get age() {
+          return this._age
+        }
+
+        // 属性的设置器，用于设置年龄值
+        set age(value) {
+          if (value < 0) {
+            console.error('Age cannot be negative')
+          } else {
+            this._age = value
+          }
+        }
+
+        // 定义一个方法，显示对象信息
+        displayInfo() {
+          console.log(`Name: ${this.name}, Age: ${this.age}`)
+        }
+      }
+
+      // 创建一个 Person 类的实例
+      const p = new Person('xiaoming', 25)
+      // 输出实例对象，查看其属性
+      console.log(p)
+      // 显示对象信息
+      p.displayInfo()
+
+      // 尝试设置一个非法的年龄值
+      p.age = -10
+      p.displayInfo()
+
+      // 设置一个合法的年龄值
+      p.age = 30
+      p.displayInfo()
+
+      // ES6 类继承
+      class Student extends Person {
+        constructor(name, age, studentId) {
+          super(name, age) // 调用父类的构造函数
+          this.studentId = studentId // 初始化学生ID属性
+        }
+
+        // 重写 displayInfo 方法
+        displayInfo() {
+          console.log(
+            `Name: ${this.name}, Age: ${this.age}, Student ID: ${this.studentId}`
+          )
+        }
+      }
+
+      // 创建一个 Student 类的实例
+      const s = new Student('xiaohong', 22, 'S12345')
+      // 显示学生信息
+      s.displayInfo()
+
+      // 设置学生的年龄
+      s.age = 23
+      s.displayInfo()
+    </script>
+  </body>
+</html>

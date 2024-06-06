@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+        当前计数:{{count}} <br>
+        <button @click="handleClick">增加</button>
+    </div>
+    <script>
+      const { createApp, ref } = Vue
+      createApp({
+        setup(){
+            const count = ref(0)
+            const handleClick =()=>{
+                count.value++
+            }
+            return{
+                count,
+                handleClick,
+            }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
